@@ -1,0 +1,25 @@
+/**: # Matches what ever calls it. Only for single node param files
+  ros__parameters:
+    initial_position: [29.967765, -85.472428]  # lat, long
+    initial_heading: 10.0  # Degrees
+    veh_sim:
+      sim_time_step: 0.02 # seconds
+      track: 1.155
+      kingpin_width: 0.9
+      wheelbase: 1.845
+      steering_motion_delay: 0.698132 # rad/s steering rate
+      steering_signal_delay: 0.0
+      steering_position_noise: [0.0, 0.0]
+      hst_motion_delay: 0.0
+      hst_signal_delay: 0.0
+      hst_position_noise: [0.0, 0.0]
+      position_feedback_noise: 0.002  # standard deviation (meters)
+      velocity_feedback_noise: 0.0  # standard deviation (m/s)
+    trailer_sim:
+      sim_time_step: 0.02 # seconds, must match veh_sim
+      capacity: 500.0
+      dispersal_flow_rate: 50.0 # gallons/min
+      refill_flow_rate: 20.0 # gallons/min
+      liquid_feedback_noise: 0.05 # standard deviation (gallons)
+
+
