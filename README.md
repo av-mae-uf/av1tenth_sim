@@ -1,10 +1,11 @@
 # AV1Tenth Simulator
 This simulator uses the bicycle model to simulate the motion of the av1tenth vehicle.
 
-### Notes:
-Steering motion delay might be neglible for the vehicles. The servo is pretty aggressive on response 
-to new commands. Steering signal delay might be a better parameter to use to simulate the latency between sending the
-ROS 2 driver a AckermannDriveStamped command to when the servo starts actuating.
+Run the command below to start the simulator with RViz (after building and sourcing)
+
+```bash
+ros2 launch av1tenth_sim rviz_simulator.launch.py
+```
 
 ## Use with Teleop
 To use the class teleop project with the simulator, include the **remappings** options in the launch file for the teleop node.
