@@ -1,5 +1,6 @@
 import rclpy
 from rclpy.node import Node
+from rclpy.qos import QoSProfile, QoSDurabilityPolicy
 
 from geometry_msgs.msg import Vector3, Pose, Point, Quaternion
 from visualization_msgs.msg import Marker
@@ -12,9 +13,11 @@ class SimVisualizer(Node):
         super().__init__('sim_visualizer')
 
         # Use these to publish the .STL files for Rviz
-        self.chassis_pub = self.create_publisher(Marker, 'chassis', 2)
-        self.left_wheel_pub = self.create_publisher(Marker, 'left_wheel', 2)
-        self.right_wheel_pub = self.create_publisher(Marker, 'right_wheel', 2)
+        # Create a latching publisher for task_paths_viz
+        latching_qos = QoSProfile(depth=1, durability=QoSDurabilityPolicy.TRANSIENT_LOCAL)
+        self.chassis_pub = self.create_publisher(Marker, 'chassis', latching_qos)
+        self.left_wheel_pub = self.create_publisher(Marker, 'left_wheel', latching_qos)
+        self.right_wheel_pub = self.create_publisher(Marker, 'right_wheel', latching_qos)
 
         self.timer = self.create_timer(timer_period_sec=0.2, callback=self.timer_callback)
 
@@ -36,6 +39,7 @@ class SimVisualizer(Node):
         chassis_marker.scale = Vector3(x=0.001, y=0.001, z=0.001)
         chassis_marker.mesh_resource = 'package://av1tenth_sim/models/simple_model.STL'
         chassis_marker.mesh_use_embedded_materials = False
+        chassis_marker.frame_locked = True
 
         left_wheel_marker = Marker()
         left_wheel_marker.header.stamp = stamp
@@ -48,6 +52,7 @@ class SimVisualizer(Node):
         left_wheel_marker.scale = Vector3(x=0.001, y=0.001, z=0.001)
         left_wheel_marker.mesh_resource = 'package://av1tenth_sim/models/simple_wheel.STL'
         left_wheel_marker.mesh_use_embedded_materials = False
+        left_wheel_marker.frame_locked = True
         
         right_wheel_marker = Marker()
         right_wheel_marker.header.stamp = stamp
@@ -60,10 +65,13 @@ class SimVisualizer(Node):
         right_wheel_marker.scale = Vector3(x=0.001, y=0.001, z=0.001)
         right_wheel_marker.mesh_resource = 'package://av1tenth_sim/models/simple_wheel.STL'
         right_wheel_marker.mesh_use_embedded_materials = False
+        right_wheel_marker.frame_locked = True
 
         self.chassis_pub.publish(chassis_marker)
         self.left_wheel_pub.publish(left_wheel_marker)
         self.right_wheel_pub.publish(right_wheel_marker)
+
+        # self.timer.cancel()
 
 
 def main(args=None):

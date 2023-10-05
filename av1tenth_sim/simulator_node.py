@@ -35,7 +35,7 @@ class VehicleSimulator(Node):
                 ('veh_sim.wheelbase', 0.3143),
                 ('veh_sim.steering_motion_delay', 0.087),
                 ('veh_sim.steering_signal_delay', 0.0),
-                ('veh_sun.speed_delay', 1.0),
+                ('veh_sim.speed_delay', 1.0),
                 ('veh_sim.position_feedback_noise', 0.0),
                 ('veh_sim.velocity_feedback_noise', 0.0)
             ]

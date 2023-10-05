@@ -107,8 +107,10 @@ class VehicleSim:
         self.state.heading = self.state.heading + self.speed * tan(self.state.steering_angle) / self.params.wheelbase * self.params.sim_time_step
 
     def update_commands(self, steering_angle: float, speed: float):
-        # Keep speed below 7 m/s
-        self.speed_cmd = speed if speed < 7.0 else 7.0
+        # Keep speed below 1.5 m/s
+        self.speed_cmd = speed
+        if (abs(self.speed_cmd) > 1.5):
+            self.speed_cmd = np.sign(self.speed_cmd) * 1.5
         
         self.steering_angle_cmd = steering_angle
         if (abs(self.steering_angle_cmd) > np.pi/6.0):

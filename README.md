@@ -6,6 +6,19 @@ Steering motion delay might be neglible for the vehicles. The servo is pretty ag
 to new commands. Steering signal delay might be a better parameter to use to simulate the latency between sending the
 ROS 2 driver a AckermannDriveStamped command to when the servo starts actuating.
 
+## Use with Teleop
+To use the class teleop project with the simulator, include the **remappings** options in the launch file for the teleop node.
+
+```python
+teleop = Node(
+    package='class_teleop',
+    executable='teleop',
+    output='screen',
+    remappings=[
+        ('/vehicle_command_ackermann', '/simulator/vehicle_command_ackermann')
+    ]
+)
+```
 ## I/O
 All ***MessageTypes*** used are standard ROS messages and their specifics can be found by a google search.
 
@@ -41,9 +54,9 @@ simulator = Node(
             'veh_sim.track': 0.1937, # meters
             'veh_sim.kingpin_width': 0.1524, # meters
             'veh_sim.wheelbase': 0.3143, # meters
-            'veh_sim.steering_motion_delay': 0.698132, # steering rate (rad/s)
+            'veh_sim.steering_motion_delay': 2.0, # steering rate (rad/s)
             'veh_sim.steering_signal_delay': 0.0, # seconds
-            'veh_sim.speed_delay': 0.5, # acceleration (m/s^2)
+            'veh_sim.speed_delay': 2.5, # acceleration (m/s^2)
             'veh_sim.position_feedback_noise': 0.002,  # standard deviation (meters)
             'veh_sim.velocity_feedback_noise': 0.04,  # standard deviation (m/s)
         }
