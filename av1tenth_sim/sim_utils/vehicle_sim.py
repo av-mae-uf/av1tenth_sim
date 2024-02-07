@@ -19,13 +19,13 @@ class VehicleState:
     steering_angle: float = 0.0 # in radians
 
     def __post_init__(self):
-        easting, northing, _, _ = utm.from_latlon(self.position[0], self.position[1])
-        self.position = np.array([easting, northing, 0.0])
+        # easting, northing, _, _ = utm.from_latlon(self.position[0], self.position[1])
+        self.position.append(0.0)
+        self.position = np.array(self.position)
 
         self.heading = np.radians(self.heading)
         if len(self.velocity) == 0:
             self.velocity = [0.0, 0.0, 0.0]
-
 
 @dataclass
 class VehicleSimParameters:
@@ -68,6 +68,10 @@ class VehicleSim:
     
     def utm_local_output(self, transform: Transform)-> None:
         """ Shift the working coordinates by the provided 'utm_local' coordinates. """
+        self.state.position = self.state.position - np.array([transform.translation.x, transform.translation.y, 0.0])
+    
+    def utm_output(self, transform: Transform)-> None:
+        """ Shift the working coordinates by the provided 'utm' coordinates. """
         self.state.position = self.state.position - np.array([transform.translation.x, transform.translation.y, 0.0])
     
     def update_state(self)-> None:

@@ -23,10 +23,14 @@ def generate_launch_description():
         output = 'screen',
         parameters = [
             {
-                'initial_position': [29.967755, -85.472441], # Lattitude, Longitude
-                'initial_heading': 10.0, # Degrees from east
+                'vehicle_1.initial_position': [1.0, 0.0], # x, y (meters)
+                'vehicle_1.initial_heading': 10.0, # Degrees from east
+                'vehicle_2.initial_position': [2.0, 0.0], # x, y (meters)
+                'vehicle_2.initial_heading': 10.0, # Degrees from east
+                'vehicle_3.initial_position': [3.0, 0.0], # x, y (meters)
+                'vehicle_3.initial_heading': 10.0, # Degrees from east
                 'veh_sim.sim_time_step': 0.02, # seconds
-                'veh_sim.output_coordinates': 'utm', # either 'utm' or 'utm_local'
+                'veh_sim.output_coordinates': 'utm_local', # either 'utm' or 'utm_local'
                 'veh_sim.track': 0.1937, # meters
                 'veh_sim.kingpin_width': 0.1524, # meters
                 'veh_sim.wheelbase': 0.3143, # meters
